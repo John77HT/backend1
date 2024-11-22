@@ -1,0 +1,18 @@
+{
+"DevConfig":{
+    "service":{
+        "host":"localhost",
+        "port":3000
+    },
+    "db":{
+        "host":"localhost",
+        "name":"sistema",
+        "port":"2424",
+        "user":"root",
+        "password":"2004",
+        "rootUser":"root",
+        "rootPassword":"2004"
+    }
+}
+}
+
