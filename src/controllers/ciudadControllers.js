@@ -1,76 +1,32 @@
-const ciudadModel = require('../models/ciudadModel')
-
-
-class ciudadControllers {
-
+class CiudadControllers {
     constructor() {
         Object.preventExtensions(this);
     }
 
-
+    // Obtener todas las ciudades
     fetchCiudad = async (req, resp) => {
-        let data = await ciudadModel.fetchCiudad();
-        resp.status(200).json(data);
+        const data = "Acabas de presionar la función Fetch para Ciudad 😏";
+        resp.status(200).json({ message: data });
     }
 
-    fetchCiudadById = async (req, resp) => {
-        try {
-            const user = await ciudadModel.fetchCiudadById(req.params.id_ciudad);
-            if (user) {
-                resp.status(200).json(user);
-            } else {
-                resp.status(404).json({ message: 'Registro no encontrado' });
-            }
-        } catch (error) {
-            resp.status(500).json({ message: 'Error al obtener Registro', error: error.message });
-        }
-    }
-
-
+    // Crear una nueva ciudad
     createCiudad = async (req, resp) => {
-
-        let record = await ciudadModel.createCiudad(req.body);
-        resp.status(200).json(record);
-
+        const data = "Acabas de presionar la función Create para Ciudad 😢";
+        resp.status(200).json({ message: data });
     }
 
+    // Actualizar una ciudad
     updateCiudad = async (req, resp) => {
-        try {
-            // Lógica para actualizar registros
-            let record = await ciudadModel.updateCiudad(req.params.id_ciudad, req.body);
-            if (record) {
-                resp.status(200).json({ message: 'registro actualizado', record });
-            } else {
-                resp.status(404).json({ message: 'registro no encontrado' });
-            }
-        } catch (error) {
-            resp.status(500).json({ message: 'Error actualizando registro', error: error.message });
-        }
-    };
-
-
-
-    deleteCiudad = async (req, resp) => {
-
-
-        let deletedCount = await ciudadModel.deleteCiudad(req.params.id_ciudad);
-
-        resp.status(200).json({
-            message: `User with ID ${req.params.id_ciudad} deleted successfully`, deletedCount
-        });
+        const data = "Acabas de presionar la función Update para Ciudad 😒";
+        resp.status(200).json({ message: data });
     }
 
-
-
-
-
-
-
-
-
+    // Eliminar una ciudad
+    deleteCiudad = async (req, resp) => {
+        const data = "Acabas de presionar la función Delete para Ciudad 💀";
+        resp.status(200).json({ message: data });
+    }
 }
 
-module.exports = {
-    ciudadControllers,
-    ciudadModel
-};
+// Asegúrate de exportar correctamente la clase
+module.exports = CiudadControllers;

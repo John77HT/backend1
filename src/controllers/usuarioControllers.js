@@ -1,67 +1,28 @@
-const usuarioModel = require('../models/usuarioModel')
-
-
-class usuarioControllers {
-
+class UsuarioControllers {
     constructor() {
         Object.preventExtensions(this);
     }
 
-
     fetchUsers = async (req, resp) => {
-        let data = await usuarioModel.fetchUsersAll();
-        resp.status(200).json(data);
+        const data = "Acabas De Precionar La Función Fetch 😏";
+        resp.status(200).json({ message: data });
     }
-
-    fetchUserById = async (req, resp) => {
-        try {
-            const user = await usuarioModel.fetchUserById(req.params.id_usuario);
-            if (user) {
-                resp.status(200).json(user);
-            } else {
-                resp.status(404).json({ message: 'Usuario no encontrado' });
-            }
-        } catch (error) {
-            resp.status(500).json({ message: 'Error al obtener usuario', error: error.message });
-        }
-    }
-
 
     createUsers = async (req, resp) => {
-        
-        let record = await usuarioModel.createUsers(req.body);
-        resp.status(200).json(record);
-
+        const data = "Acabas De Precionar La Función Create 😢";
+        resp.status(200).json({ message: data });
     }
 
     updateUsers = async (req, resp) => {
-        try {
-            // Lógica para actualizar usuarios
-            let record = await usuarioModel.updateUsers(req.params.id_usuario, req.body);
-            if (record) {
-                resp.status(200).json({ message: 'Usuario actualizado', record });
-            } else {
-                resp.status(404).json({ message: 'Usuario no encontrado' });
-            }
-        } catch (error) {
-            resp.status(500).json({ message: 'Error actualizando usuario', error: error.message });
-        }
-    };
-
-
-    deleteUsers = async (req, resp) => {
-
-
-        let deletedCount = await usuarioModel.deleteUser(req.params.id_usuario);
-
-        resp.status(200).json({
-            message: `User with ID ${req.params.id_usuario} deleted successfully`, deletedCount
-        });
+        const data = "Acabas De Precionar La Función Update 😒";
+        resp.status(200).json({ message: data });
     }
 
+    deleteUsers = async (req, resp) => {
+        const data = "Acabas De Precionar La Función Delete 💀";
+        resp.status(200).json({ message: data });
+    }
 }
 
-module.exports = {
-    usuarioControllers,
-    usuarioModel
-};
+// Asegúrate de exportar la clase correctamente
+module.exports = UsuarioControllers;

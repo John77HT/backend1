@@ -4,26 +4,17 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 
-
-
-
 // Importaciones de los archivos
-const conf = require('../config/configbd.json'); // Configuración de la BD
-const DBManager = require('./DBManager'); // Administrador de BD
-
 const Router = require('../routes/router.js');
 
-// Estos son mis modelos
+// Estos son mis modelos simulados (datos simulados)
 const usuarioModel = require('../models/usuarioModel.js');
-const ciudadModel= require('../models/ciudadModel.js');
-const loginModel=require('../models/loginModel.js');
+const ciudadModel = require('../models/ciudadModel.js');
+
 
 // Estos son los Controladores
-const { usuarioControllers } = require('../controllers/usuarioControllers.js');
-const { ciudadControllers } = require('../controllers/ciudadControllers.js');
-//const { loginControllers } = require('../controllers/loginControllers.js');
-
-const loginControllers = require('../controllers/loginControllers.js');
+const UsuarioControllers = require('../controllers/usuarioControllers.js'); // Corregido
+const CiudadControllers = require('../controllers/ciudadControllers.js'); // Corregido
 
 
 class AppManager {
@@ -36,7 +27,7 @@ class AppManager {
     }
 
     #init = async () => {
-        this.#runningConfType = conf.DevConfig;
+        this.#runningConfType = {}; // Configuración vacía ya que no usaremos la BD
         this.#appExpress = express();
     }
 
@@ -52,35 +43,22 @@ class AppManager {
         this.#appExpress.use(bodyParser.urlencoded({ extended: true })); // Analiza cuerpos URL encoded
         this.#appExpress.use(morgan('dev')); // Registra solicitudes
 
-        await this.#prepareDataBase(this.#runningConfType.db);
-        await this.#prepareRouting();
-
-        
-    }
-
-    #prepareDataBase = async (dbConfig) => {
-        const oDBMan = new DBManager();
-        await oDBMan.prepareDataBase(dbConfig);
-        await usuarioModel.defineModel(oDBMan.getConnection());
-        await ciudadModel.defineModel(oDBMan.getConnection());
-        await loginModel.defineModel(oDBMan.getConnection());
+        await this.#prepareRouting();  // No es necesario preparar la base de datos
     }
 
     #prepareRouting = async () => {
         const oRouter = new Router();
-        const oUsuarioControllers = new usuarioControllers();
-        const oCiudadControllers = new ciudadControllers();//instanciar controlador de ciudad
-        const oLoginControllers = new loginControllers();
-
+        const oUsuarioControllers = new UsuarioControllers(); // Corregido
+        const oCiudadControllers = new CiudadControllers(); // Instanciado correctamente
         
 
-        oRouter.attachControllers(oUsuarioControllers,oCiudadControllers,oLoginControllers); // Adjunta los controladores
+        oRouter.attachControllers(oUsuarioControllers, oCiudadControllers); // Adjunta los controladores
         await oRouter.prepareRouting();  // Prepara las rutas
         this.#appExpress.use('/api', oRouter.getRouter());  // Usa el enrutador preparado
     }
 
     runService = async () => {
-        const thisServicePort = this.#runningConfType.service.port;
+        const thisServicePort = 3000; // O usa otro puerto si lo deseas
         await this.#appExpress.listen(thisServicePort, () => {
             console.log(`AppManager is ready on ${thisServicePort}`);
         });
