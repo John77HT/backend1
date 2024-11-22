@@ -34,7 +34,7 @@ class AppManager {
     prepareService = async () => {
         // Configura CORS
         this.#appExpress.use(cors({
-            origin: 'http://localhost:4200', // Cambia a tu dominio permitido
+            origin: 'https://fron-4szv.onrender.com', // Cambia a tu dominio permitido
             methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
             credentials: true // Si deseas permitir credenciales (como cookies)
         }));
@@ -57,12 +57,20 @@ class AppManager {
         this.#appExpress.use('/api', oRouter.getRouter());  // Usa el enrutador preparado
     }
 
-    runService = async () => {
+    /*runService = async () => {
         const thisServicePort = 3000; // O usa otro puerto si lo deseas
         await this.#appExpress.listen(thisServicePort, () => {
             console.log(`AppManager is ready on ${thisServicePort}`);
         });
+    }*/
+
+    runService = async () => {
+        const thisServicePort = process.env.PORT || 3000; // Usa el puerto asignado por Render o el puerto 3000 como fallback
+        await this.#appExpress.listen(thisServicePort, () => {
+            console.log(`AppManager is ready on port ${thisServicePort}`);
+        });
     }
+    
 
     // Middleware de manejo de errores
     setupErrorHandling = () => {
