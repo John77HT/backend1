@@ -28,5 +28,5 @@ class CiudadControllers {
     };
 }
 
-module.exports = new CiudadControllers();
-
+// Exporta la clase para instanciarla en otros archivos
+module.exports = CiudadControllers;
