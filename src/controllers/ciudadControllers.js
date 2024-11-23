@@ -1,32 +1,32 @@
 class CiudadControllers {
-    constructor() {
-        Object.preventExtensions(this);
-    }
+    fetchCiudades = (req, res) => {
+        const message = "Has presionado la función fetchCiudades 🚀";
+        res.status(200).json({ message });
+    };
 
-    // Obtener todas las ciudades
-    fetchCiudad = async (req, resp) => {
-        const data = "Acabas de presionar la función Fetch para Ciudad 😏";
-        resp.status(200).json({ message: data });
-    }
+    fetchCiudadById = (req, res) => {
+        const { id } = req.params;
+        const message = `Has solicitado la ciudad con ID: ${id} 🌎`;
+        res.status(200).json({ message });
+    };
 
-    // Crear una nueva ciudad
-    createCiudad = async (req, resp) => {
-        const data = "Acabas de presionar la función Create para Ciudad 😢";
-        resp.status(200).json({ message: data });
-    }
+    createCiudad = (req, res) => {
+        const message = "Has presionado la función createCiudad 🏙️";
+        res.status(200).json({ message });
+    };
 
-    // Actualizar una ciudad
-    updateCiudad = async (req, resp) => {
-        const data = "Acabas de presionar la función Update para Ciudad 😒";
-        resp.status(200).json({ message: data });
-    }
+    updateCiudad = (req, res) => {
+        const { id } = req.params;
+        const message = `Has actualizado la ciudad con ID: ${id} 🔄`;
+        res.status(200).json({ message });
+    };
 
-    // Eliminar una ciudad
-    deleteCiudad = async (req, resp) => {
-        const data = "Acabas de presionar la función Delete para Ciudad 💀";
-        resp.status(200).json({ message: data });
-    }
+    deleteCiudad = (req, res) => {
+        const { id } = req.params;
+        const message = `Has eliminado la ciudad con ID: ${id} 🗑️`;
+        res.status(200).json({ message });
+    };
 }
 
-// Asegúrate de exportar correctamente la clase
-module.exports = CiudadControllers;
+module.exports = new CiudadControllers();
+

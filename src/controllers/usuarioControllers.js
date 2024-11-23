@@ -8,6 +8,12 @@ class UsuarioControllers {
         resp.status(200).json({ message: data });
     }
 
+    fetchUsersById = (req, res) => {
+        const { id } = req.params;
+        const message = `Has solicitado el usuario con ID: ${id} 🌎`;
+        res.status(200).json({ message });
+    };
+
     createUsers = async (req, resp) => {
         const data = "Acabas De Precionar La Función Create 😢";
         resp.status(200).json({ message: data });
